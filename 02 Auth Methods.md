@@ -217,6 +217,7 @@ vault write auth/okta/groups/mygroupname policies=bryan
 # Should now be able to log into vault with okta
 ```
 
+<a name="markdown-header-userpass"></a>
 ## [Userpass](https://developer.hashicorp.com/vault/docs/auth/userpass)
 
 ```bash
