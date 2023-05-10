@@ -1,11 +1,11 @@
 <!-- omit from toc -->
 # [Auth Methods](https://developer.hashicorp.com/vault/docs/concepts/auth)
 
-- [Token](#markdown-header-token)
-  - [Regenerate a Root Token](#markdown-header-regenerate-a-root-token)
-- [Approle](#markdown-header-approle)
-- [Okta](#markdown-header-okta)
-- [Userpass](#markdown-header-userpass)
+- [Token](#token)
+  - [Regenerate a Root Token](#regenerate-a-root-token)
+- [Approle](#approle)
+- [Okta](#okta)
+- [Userpass](#userpass)
 
 
 Authentication in Vault is the process by which user or machine supplied information is verified against an internal or external system. Vault supports multiple auth methods including GitHub, LDAP, AppRole, and more. Each auth method has a specific use case.
@@ -103,6 +103,7 @@ vault token renew -accessor gFgh4kfjK459K4k599fKNMb4
 # This also applies to max-ttl
 ```
 
+<a name="regenerate-a-root-token"></a>
 ### Regenerate a Root Token
 
 - In case normal login is broken
@@ -147,6 +148,7 @@ vault operator generate-root \
 # hvs.zfXBAR1jOSH73PYovQ0EIOYo
 ```
 
+<a name="approle"></a>
 ## [Approle](https://developer.hashicorp.com/vault/docs/auth/approle)
 
 The approle auth method allows machines or apps to authenticate with Vault-defined roles. The open design of AppRole enables a varied set of workflows and configurations to handle large numbers of apps. This auth method is oriented to automated workflows (machines and services), and is less useful for human operators.
@@ -202,6 +204,7 @@ vault write auth/approle/login role_id=3454d712-a86c-91c7-f987-ca5066c85dbc secr
 # token_meta_role_name    bryan
 ```
 
+<a name="okta"></a>
 ## [Okta](https://developer.hashicorp.com/vault/docs/auth/okta)
 
 ```bash
@@ -217,7 +220,7 @@ vault write auth/okta/groups/mygroupname policies=bryan
 # Should now be able to log into vault with okta
 ```
 
-<a name="markdown-header-userpass"></a>
+<a name="userpass"></a>
 ## [Userpass](https://developer.hashicorp.com/vault/docs/auth/userpass)
 
 ```bash
