@@ -1,3 +1,4 @@
+<!-- cSpell:ignore -->
 # Scale Vault For Performance
 
 ## Use Batch Tokens

@@ -1,7 +1,7 @@
+<!-- cSpell:ignore -->
 # Notes
 
 - Master key has been renamed to root key
-
 
 ## Token Types and Their Prefix
 

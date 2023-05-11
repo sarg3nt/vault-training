@@ -1,3 +1,4 @@
+<!-- cSpell:ignore -->
 # Access Control
 
 ## Vault Identity Entities and Groups

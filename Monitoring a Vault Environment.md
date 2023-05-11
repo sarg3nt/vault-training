@@ -1,3 +1,4 @@
+<!-- cSpell:ignore -->
 # Monitoring a Vault Environment
 
 ## [Vault Telemetry](https://developer.hashicorp.com/vault/docs/internals/telemetry)

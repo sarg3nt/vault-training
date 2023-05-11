@@ -1,3 +1,4 @@
+<!-- cSpell:ignore -->
 # Vault Install, Setup and Unseal
 
 - [Starting Vault in Dev Mode](https://developer.hashicorp.com/vault/tutorials/getting-started/getting-started-dev-server)

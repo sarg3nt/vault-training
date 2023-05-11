@@ -1,3 +1,4 @@
+<!-- cSpell:ignore -->
 # Build Fault-Tolerant Vault Environments
 
 ## Configure a Highly Available Cluster

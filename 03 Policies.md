@@ -1,3 +1,4 @@
+<!-- cSpell:ignore -->
 # [Policies](https://developer.hashicorp.com/vault/docs/concepts/policies)
 
 Everything in Vault is path-based, and policies are no exception. Policies provide a declarative way to grant or forbid access to certain paths and operations in Vault. This section discusses policy workflows and syntaxes.

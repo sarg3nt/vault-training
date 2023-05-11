@@ -1,3 +1,4 @@
+<!-- cSpell:ignore -->
 <!-- omit from toc -->
 # [Secrets Engines](https://developer.hashicorp.com/vault/docs/secrets)
 

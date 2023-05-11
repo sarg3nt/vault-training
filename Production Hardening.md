@@ -1,3 +1,4 @@
+<!-- cSpell:ignore -->
 # Production Hardening
 
 See [slides 144-182](operations-training/01-Create-a-working-Vault-server-configuration-given-a-scenario.pdf)

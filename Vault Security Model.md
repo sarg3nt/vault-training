@@ -1,3 +1,4 @@
+<!-- cSpell:ignore -->
 # Vault Security Model
 
 ## Secure Introduction of Vault Clients

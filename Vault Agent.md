@@ -1,3 +1,4 @@
+<!-- cSpell:ignore Templating  -->
 # Vault Agent
 
 ## Securely Configure Auto-Auth and Token Sink
