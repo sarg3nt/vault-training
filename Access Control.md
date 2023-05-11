@@ -56,7 +56,10 @@ token/    token    auth_token_0dc86457    token based credentials    n/a
   - Allows you to set up once in Vault and continue manage permissions in the identity provider.
   - Note that the group name must match the group name in your identity provide
 
+<!-- TODO: Merge this section with the existing policies doc -->
 ## Vault Policies
+
+See [slides 16-40](operations-training/07-Configure-Access-Control.pdf) for more information.
 
 - Vault policies provide operators a way to permit or deny access to certain paths or actions within Vault (RBAC)
   - Gives us the ability to provide granular control over who gets access to secrets
@@ -129,44 +132,223 @@ path "kv\data\apps\jenkins" {
 ["create","read","update","delete","list","sudo","deny"]
 ```
 
-- See [slides 16-22](operations-training/07-Configure-Access-Control.pdf) for more information.
+[Root-Protected Paths](https://learn.hashicorp.com/tutorials/vault/policies#root-protected-api-endpoints)
 
-## Managing Policies 
-
-- See [slides 23-31](operations-training/07-Configure-Access-Control.pdf) for more information.
-
-## Anatomy of a Vault Policy
-
-- See [slides 32-35](operations-training/07-Configure-Access-Control.pdf) for more information.
-
-## Vault Polices - Path
-
-- See [slides 36-40](operations-training/07-Configure-Access-Control.pdf) for more information.
+- Root-Protected Paths
+  - Many paths in Vault require a root token or `sudo` capability to use
+  - These paths focus on important/critical paths for Vault or plugins
+- Examples of root-protected paths:
+  - `auth/token/create-orphan` (create an orphan token)
+  - `pki/root/sign-self-issued` (sign a self-issued certificate)
+  - `sys/rotate` (rotate the encryption key)
+  - `sys/seal` (manually seal Vault)
+  - `sys/step-down` (force the leader to give up active status)
 
 ## Vault Polices - Capabilities
 
-- See [slides 41-47](operations-training/07-Configure-Access-Control.pdf) for more information.
+See [slides 41-47](operations-training/07-Configure-Access-Control.pdf) for more information.
+
+### Most Used
+
+- Create – create a new entry
+- Read – read credentials, configurations, etc
+- Update – overwrite the existing value of a secret or configuration
+- Delete – delete something
+- List – view what's there, doesn't allow you to read, good for admins to see a list of what is there but not the secret data itself
+
+> **Note:** Write is not a valid capability
+
+### Special
+
+- Sudo – used for root-protected paths
+- Deny – deny access – always takes precedence over any other capability
+
+### Examples
+
+Requirement:
+
+- Access to generate database credentials at `database/creds/db01`
+- Create, Update, Read, and Delete secrets stored at `kv/apps/dev-app01`
+
+Solution:
+
+```bash
+path "database/creds/dev-db01" {
+  capabilities = ["read"]
+}
+path "kv/apps/dev-app01" {
+  capabilities = ["create", "read", "update", "delete"]
+}
+```
+
+Requirement:
+
+- Access to read credentials after the path `kv/apps/webapp`
+- Deny access to `kv/apps/webapp/super-secret`
+
+Solution:
+
+```bash
+path "kv/apps/webapp/*" {
+  capabilities = ["read"]
+}
+path "kv/apps/webapp/super_secret" {
+  capabilities = ["deny"]
+}
+```
+
+> **Note:** The above policy would not allow a user to browser `kv/apps/webapp` in the Web UI.  We would need to grant `list` to those paths.
 
 ## Customizing the Path
 
-- See [slides 48-59](operations-training/07-Configure-Access-Control.pdf) for more information.
+See [slides 48-59](operations-training/07-Configure-Access-Control.pdf) for more information.
+
+### Using the `*` to Customize the Path
+
+- The glob `*` is a wildcard and can only be used at the **end** of a path
+- Can be used to signify anything **after** a path or as part of a pattern
+- Examples:
+  - `secret/apps/application1/*` - allows any path after application1
+  - `kv/platform/db-*`  - would match `kv/platform/db-2` but not `kv/platform/db2`
+
+If we wanted to ALSO read from `secret/apps/application1`, the policy would look like this:
+
+```bash
+path "secret/apps/application1/*" {
+  capabilities = ["read"]
+}
+path "secret/apps/application1" {
+  capabilities = ["read"]
+}
+```
+
+### Using the `+` to Customize the Path
+
+- The plus `+` supports wildcard matching for a single directory in the path
+- Can be used in multiple path segments, i.e., `secret/+/+/db`
+- Examples:
+  - `secret/+/db` - matches `secret/db2/db` or `secret/app/db`
+  - `kv/data/apps/+/webapp` – matches the following:
+    - `kv/data/apps/dev/webapp`
+    - `kv/data/apps/qa/webapp`
+    - `kv/data/apps/prod/webapp`
+
+Example:
+
+```bash
+path "secret/+/+/webapp" {
+ capabilities = ["read", "list"]
+}
+path "secret/apps/+/team-*" {
+ capabilities = ["create", "read"]
+}
+```
+
+### ACL Templating
+
+- Use variable replacement in some policy strings with values available to the token
+- Define policy paths containing double curly braces: `{{<parameter>}}`
+
+Example:  Creates a section of the key/value v2 secret engine to a specific user
+
+```bash
+path "secret/data/{{identity.entity.id}}/*" {
+  capabilities = ["create", "update", "read", "delete"]
+}
+path "secret/metadata/{{identity.entity.id}}/*" {
+  capabilities = ["list"]
+}
+```
+
+If my `entity.id` was `123456` then vault would create a policy for me that allows me to store secrets at `secret/data/123456/*`
+
+| Parameter                                                              | Description                                                             |
+| ---------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `identity.entity.id`                                                   | The entity's ID                                                         |
+| `identity.entity.name`                                                 | The entity's name                                                       |
+| `identity.entity.metadata.<<metadata key>>`                            | Metadata associated with the entity for the given key                   |
+| `identity.entity.aliases.<<mount accessor>>.id`                        | Entity alias ID for the given mount                                     |
+| `identity.entity.aliases.<<mount accessor>>.name`                      | Entity alias name for the given mount                                   |
+| `identity.entity.aliases.<<mount accessor>>.metadata.<<metadata key>>` | Metadata associated with the alias for the given mount and metadata key |
+| `identity.groups.ids.<<group id>>.name`                                | The group name for the given group ID                                   |
+| `identity.groups.names.<<group name>>.id`                              | The group ID for the given group name                                   |
+| `identity.groups.names.<<group id>>.metadata.<<metadata key>>`         | Metadata associated with the group for the given key                    |
+| `identity.groups.names.<<group name>>.metadata.<<metadata key>>`       | Metadata associated with the group for the given key                    |
 
 ## Working with Policies
 
-- See [slides 60-64](operations-training/07-Configure-Access-Control.pdf) for more information.
+See [slides 60-64](operations-training/07-Configure-Access-Control.pdf) for more information.
 
-END OF SECTION
+### Testing Policies
 
-## Understand Sentinel Policies
+Test to make sure the policy fulfills the requirements
 
-- See [slides 66-80](operations-training/07-Configure-Access-Control.pdf) for more information.
+Example Requirements:
 
-END OF SECTION
+- Clients must be able to request AWS credential granting read access to a S3 bucket
+- Read secrets from `secret/apikey/Google`
 
-## Define Control Groups and Describe their Basic Workflow
+```bash
+# Create a token using the new policy
+❯ vault token create -policy="web-app"
+# Authenticate with the newly generated token
+❯ vault login <token>
+# Make sure that the token can read
+❯ vault read secret/apikey/Google
+# This should fail
+❯ vault write secret/apikey/Google key="ABCDE12345"
+# Request a new AWS credentials 
+❯ vault read aws/creds/s3-readonly 
+```
 
-- See [slides 82-92](operations-training/07-Configure-Access-Control.pdf) for more information.
+### Administrative Policies
 
-## Multi-Tenancy with Namespaces
+- Permissions for Vault backend functions live at the sys/ path
+- Users/admins will need policies that define what they can do within Vault to administer Vault itself
+  - Unsealing
+  - Changing policies
+  - Adding secret backends
+  - Configuring database configurations
 
-- See [slides 93-109](operations-training/07-Configure-Access-Control.pdf) for more information.
+Example Administrative Policy
+
+```bash
+# Configure License
+path "sys/license" {
+  capabilities = ["read", "list", "create", "update", "delete"]
+}
+# Initialize Vault
+path "sys/init" {
+  capabilities = ["read", "update", "create"]
+}
+# Configure UI in Vault
+path "sys/config/ui" {
+  capabilities = ["read", "list", "update", "delete", "sudo"]
+}
+# Allow rekey of unseal keys for Vault
+path "sys/rekey/*" {
+  capabilities = ["read", "list", "update", "delete"]
+}
+# Allows rotation of master key
+path "sys/rotate" {
+  capabilities = ["update", "sudo"]
+}
+# Allows Vault seal
+path "sys/seal" {
+  capabilities = ["sudo"]
+}
+```
+
+> See instructors [github](https://github.com/btkrausen/hashicorp/tree/master/vault/policies) for example policies
+
+## Sentinel Policies (Enterprise)
+
+See [slides 66-80](operations-training/07-Configure-Access-Control.pdf) for more information.
+
+## Control Groups (Enterprise)
+
+See [slides 82-92](operations-training/07-Configure-Access-Control.pdf) for more information.
+
+## [Multi-Tenancy with Namespaces (Enterprise)](https://developer.hashicorp.com/vault/docs/commands/namespace)
+
+See [slides 93-109](operations-training/07-Configure-Access-Control.pdf) for more information.
