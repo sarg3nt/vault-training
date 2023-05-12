@@ -154,6 +154,7 @@ hvs.zfXBAR1jOSH73PYovQ0EIOYo
 
 <!-- markdownlint-disable MD033 MD022 -->
 <a name="approle"></a>
+
 ## [Approle](https://developer.hashicorp.com/vault/docs/auth/approle)
 
 The approle auth method allows machines or apps to authenticate with Vault-defined roles. The open design of AppRole enables a varied set of workflows and configurations to handle large numbers of apps. This auth method is oriented to automated workflows (machines and services), and is less useful for human operators.

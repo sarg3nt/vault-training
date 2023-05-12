@@ -1,7 +1,16 @@
 <!-- cSpell:ignore -->
 # Access Control
 
-## Vault Identity Entities and Groups
+## [Identity: Entities and Groups](https://developer.hashicorp.com/vault/tutorials/auth-methods/identity)
+
+Vault supports multiple authentication methods and also allows enabling the same type of authentication method on different mount paths. Each Vault client may have multiple accounts with various identity providers that are enabled on the Vault server.
+
+Vault clients can be mapped as entities and their corresponding accounts with authentication providers can be mapped as aliases. In essence, each entity is made up of zero or more aliases. Identity secrets engine internally maintains the clients who are recognized by Vault.
+
+There are two types of groups `internal` and `external`.  
+Internal groups are manually created in vault while external groups are automatically created when inferred from an auth method.  
+
+NOTE: OIDC groups are not automatically created.
 
 ### Entities
 
@@ -62,6 +71,7 @@ token/    token    auth_token_0dc86457    token based credentials    n/a
 
 See [slides 16-40](operations-training/07-Configure-Access-Control.pdf) for more information.
 
+- Also called ACL Policies or just ACLs
 - Vault policies provide operators a way to permit or deny access to certain paths or actions within Vault (RBAC)
   - Gives us the ability to provide granular control over who gets access to secrets
 - Policies are written in declarative statements and can be written using JSON or HCL
