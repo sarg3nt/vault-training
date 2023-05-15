@@ -1,5 +1,26 @@
-<!-- cSpell:ignore -->
+<!-- omit from toc -->
 # Access Control
+
+- [Identity: Entities and Groups](#identity-entities-and-groups)
+  - [Entities](#entities)
+  - [Groups](#groups)
+- [Vault Policies](#vault-policies)
+  - [Out of the Box Policies](#out-of-the-box-policies)
+- [Vault Polices - Capabilities](#vault-polices---capabilities)
+  - [Most Used](#most-used)
+  - [Special](#special)
+  - [Examples](#examples)
+- [Customizing the Path](#customizing-the-path)
+  - [Using the `*` to Customize the Path](#using-the--to-customize-the-path)
+  - [Using the `+` to Customize the Path](#using-the--to-customize-the-path-1)
+  - [ACL Templating](#acl-templating)
+    - [Template Parameters](#template-parameters)
+- [Working with Policies](#working-with-policies)
+  - [Testing Policies](#testing-policies)
+  - [Administrative Policies](#administrative-policies)
+- [Sentinel Policies (Enterprise)](#sentinel-policies-enterprise)
+- [Control Groups (Enterprise)](#control-groups-enterprise)
+- [Multi-Tenancy with Namespaces (Enterprise)](#multi-tenancy-with-namespaces-enterprise)
 
 ## [Identity: Entities and Groups](https://developer.hashicorp.com/vault/tutorials/auth-methods/identity)
 
@@ -10,22 +31,22 @@ Vault clients can be mapped as entities and their corresponding accounts with au
 There are two types of groups `internal` and `external`.  
 Internal groups are manually created in vault while external groups are automatically created when inferred from an auth method.  
 
-NOTE: OIDC groups are not automatically created.
+> **NOTE:** OIDC groups are not automatically created.
 
 ### Entities
 
 - Vault creates an entity and attaches an alias to it if a corresponding entity doesn't already exist.
 - This is done using the Identity secrets engine, which manages internal identities that are recognized by Vault
-- An entity is a representation of a single person or system used to log into Vault. Each has a unique value. Each entity is made up of zero or more aliases
-- Alias is a combination of the auth method plus some identification.  It is a mapping between an entity and auth method(s)
+- An `entity` is a representation of a single person or system used to log into Vault. Each has a unique value. Each entity is made up of zero or more aliases
+- An `alias` is a combination of the auth method plus some identification.  It is a mapping between an entity and auth method(s)
 - An entity can be manually created to map multiple entities for a single user to provide more efficient authorization management
 - Any tokens that are created for the entity inherit the capabilities that are granted by alias(es)
 - Not everyone creates manual entities as most of the time there's just one auth method enabled.  Can be useful if you have multiple accounts that you want to tie together to inherit privileges.
-- See [slides 1-14](operations-training/07-Configure-Access-Control.pdf) for more information.
+- [Slides 1-14](operations-training/07-Configure-Access-Control.pdf)
 
 ```bash
 # Create a new entity that we will add aliases to
-❯ vault write identity/entity name="Julie Smith" \
+vault write identity/entity name="Julie Smith" \
     policies="it-management" \
     metadata="organization"="HCVOP, Inc" \
     metadata="team"="management"
@@ -36,19 +57,19 @@ id         d1b44e30-10c7-8c32-9851-3207c0eb8895 # This is the canonical_id we'd 
 name       Julie Smith
 
 # Add GitHub auth as an alias
-❯ vault write identity/entity-alias \
+vault write identity/entity-alias \
     name="jsmith22" \
     canonical_id=<entity_id> \
     mount_accessor=<github_auth_accessor>
 
 # Add LDAP auth as an alias
-❯ vault write identity/entity-alias \
+vault write identity/entity-alias \
     name="jsmith@hcvop.com" \
     canonical_id=<entity_id> \
     mount_accessor=<ldap_auth_accessor>
 
 # Find accessors for existing auths
-❯ vault auth list
+vault auth list
 Path      Type     Accessor               Description                Version
 ----      ----     --------               -----------                -------
 token/    token    auth_token_0dc86457    token based credentials    n/a
@@ -66,10 +87,9 @@ token/    token    auth_token_0dc86457    token based credentials    n/a
   - Allows you to set up once in Vault and continue manage permissions in the identity provider.
   - Note that the group name must match the group name in your identity provide
 
-<!-- TODO: Merge this section with the existing policies doc -->
 ## Vault Policies
 
-See [slides 16-40](operations-training/07-Configure-Access-Control.pdf) for more information.
+[Slides 16-40](operations-training/07-Configure-Access-Control.pdf))
 
 - Also called ACL Policies or just ACLs
 - Vault policies provide operators a way to permit or deny access to certain paths or actions within Vault (RBAC)
@@ -94,12 +114,12 @@ See [slides 16-40](operations-training/07-Configure-Access-Control.pdf) for more
 
 ```bash
 # List all policies
-❯ vault policy list
+vault policy list
 default
 root
 
 # Look at the default policy
-❯ vault policy read default
+vault policy read default
 # Allow tokens to look up their own properties
 path "auth/token/lookup-self" {
     capabilities = ["read"]
@@ -111,14 +131,14 @@ path "auth/token/renew-self" {
     . . .
 
 # NOTE: Cannot read root policy even though it exists
-❯ vault policy read root
+vault policy read root
 No policy named: root
 
 # Create or update a policy
-❯ vault policy write admin-policy /tmp/admin.hcl
+vault policy write admin-policy /tmp/admin.hcl
 Success! Uploaded policy: admin-policy
 
-❯ vault policy write webapp -<< EOF
+vault policy write webapp -<< EOF
 path "kv/data/apps/*" {
   capabilities = ["read","create","update","delete"]
 }
@@ -128,7 +148,7 @@ path "kv/metadata/*" {
 EOF
 
 # Using the API
-❯ curl \
+curl \
   --header "X-Vault-Token: s.bckf4kdkds9dftk43ld9" \
   --request PUT \
   --data @payload.json \
@@ -157,22 +177,22 @@ path "kv\data\apps\jenkins" {
 
 ## Vault Polices - Capabilities
 
-See [slides 41-47](operations-training/07-Configure-Access-Control.pdf) for more information.
+[Slides 41-47](operations-training/07-Configure-Access-Control.pdf)
 
 ### Most Used
 
-- Create – create a new entry
-- Read – read credentials, configurations, etc
-- Update – overwrite the existing value of a secret or configuration
-- Delete – delete something
-- List – view what's there, doesn't allow you to read, good for admins to see a list of what is there but not the secret data itself
+- `create` – create a new entry
+- `read` – read credentials, configurations, etc
+- `update` – overwrite the existing value of a secret or configuration
+- `delete` – delete something
+- `list` – view what's there, doesn't allow you to read, good for admins to see a list of what is there but not the secret data itself
 
-> **Note:** Write is not a valid capability
+> **NOTE:** Write is not a valid capability
 
 ### Special
 
-- Sudo – used for root-protected paths
-- Deny – deny access – always takes precedence over any other capability
+- `sudo` – used for root-protected paths
+- `deny` – deny access – always takes precedence over any other capability
 
 ### Examples
 
@@ -208,11 +228,11 @@ path "kv/apps/webapp/super_secret" {
 }
 ```
 
-> **Note:** The above policy would not allow a user to browser `kv/apps/webapp` in the Web UI.  We would need to grant `list` to those paths.
+> **NOTE:** The above policy would not allow a user to browser `kv/apps/webapp` in the Web UI.  We would need to grant `list` to those paths.
 
 ## Customizing the Path
 
-See [slides 48-59](operations-training/07-Configure-Access-Control.pdf) for more information.
+[Slides 48-59](operations-training/07-Configure-Access-Control.pdf)
 
 ### Using the `*` to Customize the Path
 
@@ -273,6 +293,8 @@ path "secret/metadata/{{identity.entity.id}}/*" {
 
 If my `entity.id` was `123456` then vault would create a policy for me that allows me to store secrets at `secret/data/123456/*`
 
+#### Template Parameters
+
 | Parameter                                                              | Description                                                             |
 | ---------------------------------------------------------------------- | ----------------------------------------------------------------------- |
 | `identity.entity.id`                                                   | The entity's ID                                                         |
@@ -288,7 +310,7 @@ If my `entity.id` was `123456` then vault would create a policy for me that allo
 
 ## Working with Policies
 
-See [slides 60-64](operations-training/07-Configure-Access-Control.pdf) for more information.
+[Slides 60-64](operations-training/07-Configure-Access-Control.pdf)
 
 ### Testing Policies
 
@@ -301,15 +323,15 @@ Example Requirements:
 
 ```bash
 # Create a token using the new policy
-❯ vault token create -policy="web-app"
+vault token create -policy="web-app"
 # Authenticate with the newly generated token
-❯ vault login <token>
+vault login <token>
 # Make sure that the token can read
-❯ vault read secret/apikey/Google
+vault read secret/apikey/Google
 # This should fail
-❯ vault write secret/apikey/Google key="ABCDE12345"
+vault write secret/apikey/Google key="ABCDE12345"
 # Request a new AWS credentials 
-❯ vault read aws/creds/s3-readonly 
+vault read aws/creds/s3-readonly 
 ```
 
 ### Administrative Policies
@@ -354,12 +376,12 @@ path "sys/seal" {
 
 ## Sentinel Policies (Enterprise)
 
-See [slides 66-80](operations-training/07-Configure-Access-Control.pdf) for more information.
+[Slides 66-80](operations-training/07-Configure-Access-Control.pdf)
 
 ## Control Groups (Enterprise)
 
-See [slides 82-92](operations-training/07-Configure-Access-Control.pdf) for more information.
+[Slides 82-92](operations-training/07-Configure-Access-Control.pdf)
 
 ## [Multi-Tenancy with Namespaces (Enterprise)](https://developer.hashicorp.com/vault/docs/commands/namespace)
 
-See [slides 93-109](operations-training/07-Configure-Access-Control.pdf) for more information.
+[Slides 93-109](operations-training/07-Configure-Access-Control.pdf)

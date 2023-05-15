@@ -7,10 +7,15 @@ The slides for these two trainings can be seen in the `associate-training` and `
 
 ## General Notes
 
+```bash
+# Start vault in dev mode
+vault server -dev
+```
+
 - Master key has been renamed to root key
 
 ## Token Types and Their Prefix
 
-- Service tokens --> hvs.*
-- Batch tokens --> hvb.*
-- Recovery tokens --> hvr.*
+- Service tokens --> `hvs.*`
+- Batch tokens --> `hvb.*`
+- Recovery tokens --> `hvr.*`

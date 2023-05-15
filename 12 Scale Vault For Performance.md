@@ -1,5 +1,11 @@
-<!-- cSpell:ignore -->
+<!-- omit from toc -->
 # Scale Vault For Performance
+
+- [Use Batch Tokens](#use-batch-tokens)
+  - [Compare Batch Tokens vs. Service Tokens](#compare-batch-tokens-vs-service-tokens)
+- [Use Cases of Performance Standby Nodes (Enterprise)](#use-cases-of-performance-standby-nodes-enterprise)
+- [Enable and Configure Performance Replication (Enterprise)](#enable-and-configure-performance-replication-enterprise)
+- [Creating a Paths Filter (Enterprise)](#creating-a-paths-filter-enterprise)
 
 ## Use Batch Tokens
 
@@ -13,7 +19,7 @@
 
 ### Compare Batch Tokens vs. Service Tokens
 
-> NOTE: Know these differences very well for the exam
+> **NOTE:** Know these differences very well for the exam
 
 |                                                     | Service       | Batch                        |
 | --------------------------------------------------- | ------------- | ---------------------------- |
@@ -35,7 +41,7 @@
 \* Multiple storage writes per token creation  
 \** No storage cost for token creation, in memory only
 
-> NOTE: Batch tokens must have `-orphan=true` set to be replicated to performance clusters
+> **NOTE:** Batch tokens must have `-orphan=true` set to be replicated to performance clusters
 
 ```bash
 # Create a performance replicable batch token
@@ -48,21 +54,21 @@ vault write auth/approle/role/hcvop policies=devops \
 
 ```
 
-See [slides 1-14](operations-training/06-Scale-Vault-for-Performance.pdf) for more information
+[Slides 1-14](operations-training/06-Scale-Vault-for-Performance.pdf)
 
-## Use Cases of Performance Standby Nodes
+## Use Cases of Performance Standby Nodes (Enterprise)
 
 - Vault Open Source clusters are scale up.  Only the master node can perform reads and writes, the standby nodes must forward all traffic to the master.
 - Vault Enterprise clusters are scale out.  The standby nodes can perform reads but must send writes to the master.  These are called Performance Standby nodes.
 - This feature is only available in Vault Enterprise
-- See [slides 15-23](operations-training/06-Scale-Vault-for-Performance.pdf) for more information
+- [Slides 15-23](operations-training/06-Scale-Vault-for-Performance.pdf)
 
-## Enable and Configure Performance Replication
+## Enable and Configure Performance Replication (Enterprise)
 
 - This feature is only available in Vault Enterprise
-- See [slides 24-35](operations-training/06-Scale-Vault-for-Performance.pdf) for more information
+- [Slides 24-35](operations-training/06-Scale-Vault-for-Performance.pdf)
 
-## Creating a Paths Filter
+## Creating a Paths Filter (Enterprise)
 
 Creates an allow or deny list to determine what paths get replicated to other clusters.  
 This is useful for the cases where we have clusters in different regions and there are local laws that restrict the export of user information.  For example, we cannot export user PII from Europe to other regions so we could restrict the replication of the secrets engine that has that data.
@@ -74,4 +80,4 @@ This is useful for the cases where we have clusters in different regions and the
 - Enable a paths filter on a secondary cluster with  
 `vault write sys/replication/performance/primary/paths-filter/<cluster-id> mode=allow paths=aws/,hcvop/,customers/`
 - This feature is only available in Vault Enterprise
-- See [slides 36-45](operations-training/06-Scale-Vault-for-Performance.pdf) for more information
+- [Slides 36-45](operations-training/06-Scale-Vault-for-Performance.pdf)

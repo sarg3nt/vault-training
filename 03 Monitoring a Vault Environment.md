@@ -1,5 +1,15 @@
-<!-- cSpell:ignore -->
+<!-- omit from toc -->
 # Monitoring a Vault Environment
+
+- [Vault Telemetry](#vault-telemetry)
+  - [Telemetry Links](#telemetry-links)
+- [Audit Logs](#audit-logs)
+  - [What Audit Devices Does Vault Support](#what-audit-devices-does-vault-support)
+  - [Important Info about Audit Devices](#important-info-about-audit-devices)
+  - [Audit Links](#audit-links)
+- [Operation Logs](#operation-logs)
+  - [Specifying the Log Level](#specifying-the-log-level)
+  - [Logging Links](#logging-links)
 
 ## [Vault Telemetry](https://developer.hashicorp.com/vault/docs/internals/telemetry)
 
@@ -21,7 +31,7 @@
 - [telemetry Stanza](https://developer.hashicorp.com/vault/docs/configuration/telemetry)
 - [Telemetry Metrics Reference](https://developer.hashicorp.com/vault/tutorials/monitoring/telemetry-metrics-reference)
 - [Monitor Telemetry with Prometheus & Grafana](https://developer.hashicorp.com/vault/tutorials/monitoring/monitor-telemetry-grafana-prometheus)
-- See [slides 1-7](operations-training/02-Monitor-a-Vault-Environment.pdf) for more information.
+- [Slides 1-7](operations-training/02-Monitor-a-Vault-Environment.pdf))
 
 ```bash
 # Set in vault config file
@@ -54,51 +64,50 @@ telemetry {
 
 ### Important Info about Audit Devices
 
-> NOTE: No audit devices are enabled by default
+> **NOTE:** No audit devices are enabled by default
 
 - Can and should have more than one audit device enabled
 - If there are any audit devices enabled, Vault requires that it can write to the log before completing the client request.
 - Prioritizes safety over availability
 - If Vault cannot write to a persistent log, it will stop responding to client requests – which means Vault is down!
 
-> IMPORTANT: If an audit devices is enabled, Vault requires at least one audit device to write the log before completing the Vault request.  A full volume will cause vault to stop responding.
+> **WARNING:** If an audit devices is enabled, Vault requires at least one audit device to write the log before completing the Vault request. A full volume will cause vault to stop responding.
 
 ### Audit Links
 
 - [Audit Devices](https://developer.hashicorp.com/vault/docs/audit)
 - [Vault Audit Log Details](https://support.hashicorp.com/hc/en-us/articles/360000995548-Audit-and-Operational-Log-Details)
-- See [slides 8-16](operations-training/02-Monitor-a-Vault-Environment.pdf) for more information.
+- [Slides 8-16](operations-training/02-Monitor-a-Vault-Environment.pdf)
 
 ```bash
 # Enable file audit device at default path
-❯ vault audit enable file file_path="/var/log/vault_audit.log"
+vault audit enable file file_path="/var/log/vault_audit.log"
 Success! Enabled the file audit device at: file/
 
 # Enable file audit device at custom path of "logs"
 # Enable at a custom path inside of vault
 # Add -local to disable replication
-❯ vault audit enable -path=logs file \
+vault audit enable -path=logs file \
   file_path="/var/log/audit.log"
 Success! Enabled the file audit device at: logs/
 
 # View audit devices enabled on the cluster
-❯ vault audit list
+vault audit list
 Path    Type    Description
 ---- ---- -----------
 file/   file    n/a
 syslog/ syslog  n/a
 
-❯ vault audit list --detailed
+vault audit list --detailed
 Path       Type      Description    Replication    Options
 ----       ----      -----------    -----------    -------
 syslog/    syslog    n/a            replicated     n/a
 
 # Disable an Audit Device
-❯ vault audit disable syslog/
+vault audit disable syslog/
 Success! Disabled audit device (if it was enabled) at: syslog/
 
-> cat /var/log/audit.log | jq
-
+cat /var/log/audit.log | jq
 {
   "time": "2023-05-08T18:57:41.561900902Z",
   "type": "request",
@@ -123,7 +132,7 @@ path "sys/audit/file" {
 
 - During startup, Vault will log configuration information to the log, such as listeners & ports, logging level, storage backend, Vault version, and much more....
 - Once started, Vault will continue to log entries which are invaluable for troubleshooting
-- The log level can be configured in multiple places in Vault, and include levels 
+- The log level can be configured in multiple places in Vault, and include levels
   - err
   - warn
   - info (default)
@@ -132,22 +141,21 @@ path "sys/audit/file" {
 
 ### Specifying the Log Level
 
-1. Use the CLI flag -log_levelwhen starting the Vault service
+1. Use the CLI flag `-log_level` when starting the Vault service
   `vault server –config=/opt/vault/vault.hcl –log-level=debug`
 2. Set the environment variable `VAULT_LOG_LEVEL`  
   Change takes effect after Vault server is restarted  
   `export VAULT_LOG_LEVEL=trace`
-3. Set the `log_levelconfiguration` parameter in the Vault configuration file  
+3. Set the `log_level` configuration parameter in the Vault configuration file  
   Change takes effect after Vault server is restarted  
   `log_level=warn`
 
 ### Logging Links
 
-- See [slides 17-23](operations-training/02-Monitor-a-Vault-Environment.pdf) for more information.
+- [Slides 17-23](operations-training/02-Monitor-a-Vault-Environment.pdf)
 
 ```bash
 # Can view logs using journalctl
-> journalctl –b -–no-pager –u vault
 # shift+g to go to bottom of logs
-
+journalctl –b -–no-pager –u vault
 ```

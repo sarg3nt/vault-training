@@ -1,5 +1,17 @@
-<!-- cSpell:ignore -->
+<!-- omit from toc -->
 # Vault Security Model
+
+- [Secure Introduction of Vault Clients](#secure-introduction-of-vault-clients)
+  - [What is Secret Zero](#what-is-secret-zero)
+  - [Secure Introduction Goals](#secure-introduction-goals)
+  - [Methods of Providing Authentication to Vault](#methods-of-providing-authentication-to-vault)
+- [Security Implications of Running Vault in Kubernetes](#security-implications-of-running-vault-in-kubernetes)
+  - [TLS End to End Encryption](#tls-end-to-end-encryption)
+  - [Disable Core Dumps](#disable-core-dumps)
+  - [Ensure `mlock` is Enabled](#ensure-mlock-is-enabled)
+  - [Container Supervisor](#container-supervisor)
+  - [Don't Run Vault as Root](#dont-run-vault-as-root)
+  - [Running Vault on Kubernetes Links](#running-vault-on-kubernetes-links)
 
 ## Secure Introduction of Vault Clients
 
@@ -23,12 +35,12 @@
 
 ### Methods of Providing Authentication to Vault
 
-- Secure Platform: [slide 4](operations-training/03-Employ-the-Vault-Security-Model.pdf)
-- Secure Orchestrator (CI/CD): [slide 5](operations-training/03-Employ-the-Vault-Security-Model.pdf)
-- Secure Orchestrator (Terraform): [slide 6](operations-training/03-Employ-the-Vault-Security-Model.pdf)
-- Vault Agent - Auto Auth: [slide 7](operations-training/03-Employ-the-Vault-Security-Model.pdf)
+- Secure Platform: [slide 4](operations-training/03-Employ-the-Vault-Security-Model.pdf))
+- Secure Orchestrator (CI/CD): [slide 5](operations-training/03-Employ-the-Vault-Security-Model.pdf))
+- Secure Orchestrator (Terraform): [slide 6](operations-training/03-Employ-the-Vault-Security-Model.pdf))
+- Vault Agent - Auto Auth: [slide 7](operations-training/03-Employ-the-Vault-Security-Model.pdf))
 
-See [slides 1-7](operations-training/03-Employ-the-Vault-Security-Model.pdf) for more information.
+[Slides 1-7](operations-training/03-Employ-the-Vault-Security-Model.pdf)
 
 ## Security Implications of Running Vault in Kubernetes
 
@@ -93,4 +105,4 @@ spec:
 - [Vault on Kubernetes Deployment Guide](https://developer.hashicorp.com/vault/tutorials/kubernetes/kubernetes-raft-deployment-guide)
 - [Running Vault with Kubernetes](https://www.hashicorp.com/products/vault/kubernetes)
 - [Vault Agent with Kubernetes](https://developer.hashicorp.com/vault/tutorials/kubernetes/agent-kubernetes)
-- See [slides 8-14](operations-training/03-Employ-the-Vault-Security-Model.pdf) for more information
+- [Slides 8-14](operations-training/03-Employ-the-Vault-Security-Model.pdf)

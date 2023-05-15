@@ -1,5 +1,21 @@
-<!-- cSpell:ignore Templating  -->
+<!-- omit from toc -->
 # [Vault Agent](https://developer.hashicorp.com/vault/docs/agent)
+
+- [Securely Configure Auto-Auth and Token Sink](#securely-configure-auto-auth-and-token-sink)
+  - [Vault Agent – Auto-Auth](#vault-agent--auto-auth)
+  - [Vault Agent Configuration File](#vault-agent-configuration-file)
+    - [Starting the Vault Agent](#starting-the-vault-agent)
+  - [Vault Agent - Sink](#vault-agent---sink)
+  - [Auto-Auth Security Concerns](#auto-auth-security-concerns)
+  - [Protecting the Token using Response Wrapping](#protecting-the-token-using-response-wrapping)
+  - [Response-Wrapping the Token - Comparison](#response-wrapping-the-token---comparison)
+- [Vault Templating](#vault-templating)
+  - [Consul Template](#consul-template)
+  - [Consul Template - Workflow](#consul-template---workflow)
+    - [Create a templated file](#create-a-templated-file)
+    - [Destination File that application server will read at runtime](#destination-file-that-application-server-will-read-at-runtime)
+  - [Vault Agent Templating](#vault-agent-templating)
+    - [Template Configuration](#template-configuration)
 
 The Vault Agent is a client daemon that runs alongside an application to enable legacy applications to interact and consume secrets
 
@@ -12,7 +28,7 @@ Vault Agent provides several different features:
 
 ## Securely Configure Auto-Auth and Token Sink
 
-See [slides 1-13](operations-training/08-Configure-Vault-Agent.pdf) for more information.
+[Slides 1-13](operations-training/08-Configure-Vault-Agent.pdf)
 
 ### Vault Agent – Auto-Auth
 
@@ -21,7 +37,7 @@ See [slides 1-13](operations-training/08-Configure-Vault-Agent.pdf) for more inf
 - The application can read this token and invoke the Vault API directly
 - This strategy allows the Vault Agent to manage the token and guarantee a valid token is always available to the application
 
-Vault Agent supports many types of auth methods to authenticate and obtain a token 
+Vault Agent supports many types of auth methods to authenticate and obtain a token
 
 Auth methods are generally the methods you'd associate with "machine-oriented" auth methods
 
@@ -102,7 +118,7 @@ The placement of the `wrap_ttl` in the Vault Agent configuration file determines
 
 ### Response-Wrapping the Token - Comparison
 
-- Response Wrapped by the Auth Method 
+- Response Wrapped by the Auth Method
   - Pros:
     - Prevents man-in-the-middle attacks (MITM)
     - More secure
@@ -167,7 +183,7 @@ vault {
 
 ## [Vault Templating](https://developer.hashicorp.com/vault/docs/agent/template)
 
-See [slides 15-24](operations-training/08-Configure-Vault-Agent.pdf) for more information.
+[Slides 15-24](operations-training/08-Configure-Vault-Agent.pdf)
 
 - Templating is typically for legacy applications that cannot reach out to the Vault API and get secrets for itself.  
 - Templating should not be used for modern / internal applications we have control over.

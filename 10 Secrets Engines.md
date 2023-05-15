@@ -1,4 +1,3 @@
-<!-- cSpell:ignore -->
 <!-- omit from toc -->
 # [Secrets Engines](https://developer.hashicorp.com/vault/docs/secrets)
 
@@ -17,17 +16,23 @@ Secrets engines are components which store, generate, or encrypt data. Secrets e
 ## Installing and Managing
 
 ```bash
+# Enable a secrets engine at the default path which is the engine name
 vault secrets enable <engine-name>
+# Enable a secrets engine at a custom path
 vault secrets enable -path=<path> -description="<description" <engine-name>
 vault secrets enable -path=sel-kv/ -description="My cool secrets engine" kv-v2
 vault secrets enable -path=secret kv-v2
 # Upgrade kv v1 to kv-v2
 vault kv enable-versioning <path>
 
+# List currently installed secrets engines with detailed output
 vault secrets list -detailed
+# Disable a secrets engine
 vault secrets disable <path>
 vault secrets disable sel-kv/
+# Move the path of a secrets engine to a different path
 vault secrets move <oldpath> <newpath>
+# Tune a secrets engine by setting values such as its ttl
 vault secrets tune -default-lease-ttl=72h pki/
 ```
 
@@ -62,7 +67,7 @@ path "database/creds/data-consultant" {
 
 ## [KV](https://developer.hashicorp.com/vault/docs/secrets/kv)
 
-The kv secrets engine is a generic Key-Value store used to store arbitrary secrets within the configured physical storage for Vault. This backend can be run in one of two modes; either it can be configured to store a single value for a key or, versioning can be enabled and a configurable number of versions for each key will be stored.
+The kv secrets engine is a generic Key-Value store used to store arbitrary secrets within the configured physical storage for Vault. This backend can be run in one of two modes; either it can be configured to store a single value for a key (v1) or, versioning can be enabled and a configurable number of versions for each key will be stored (v2).
 
 ```bash
 ### Enable KV secrets engine
@@ -82,6 +87,8 @@ vault kv put secret/app1/dbconnection2 @myfile.json # Read from a json file
 #   "user": "bob",
 #   "password": "We are legion!"
 # }
+
+# Write custom metadata for a kv
 vault kv metadata put -custom-metadata=abc=123 secret/app1/dbconnection
 
 ### Get Data
@@ -134,25 +141,25 @@ vault write -f transit/keys/training/rotate
 vault list transit/keys
 # View key info
 vault read transit/keys/training
-# Key                       Value
-# ---                       -----
-# allow_plaintext_backup    false
-# auto_rotate_period        0s
-# deletion_allowed          false
-# derived                   false
-# exportable                false
-# imported_key              false
-# keys                      map[1:1682617139 2:1682618630]
-# latest_version            2
-# min_available_version     0
-# min_decryption_version    1
-# min_encryption_version    0
-# name                      training
-# supports_decryption       true
-# supports_derivation       true
-# supports_encryption       true
-# supports_signing          false
-# type                      aes256-gcm96
+Key                       Value
+---                       -----
+allow_plaintext_backup    false
+auto_rotate_period        0s
+deletion_allowed          false
+derived                   false
+exportable                false
+imported_key              false
+keys                      map[1:1682617139 2:1682618630]
+latest_version            2
+min_available_version     0
+min_decryption_version    1
+min_encryption_version    0
+name                      training
+supports_decryption       true
+supports_derivation       true
+supports_encryption       true
+supports_signing          false
+type                      aes256-gcm96
 
 # Limit minimum version of a key to be used
 # This will make the first version of the key not work
@@ -164,9 +171,9 @@ vault write transit/keys/training/config \
 vault write transit/encrypt/training \
   plaintext=$(base64 <<< "Getting started with Hashicorp Vault")  
 # Key            Value
-# ---            -----
-# ciphertext     vault:v1:Vx8+QwqQ6OpgGkaLr4u9yjaTUAQWasemRjpMyHVIyJKEQfP0W1eUhP0mcXA09oJ2QURw013J9yEm2TsLCt0LDu8=
-# key_version    1
+---            -----
+ciphertext     vault:v1:Vx8+QwqQ6OpgGkaLr4u9yjaTUAQWasemRjpMyHVIyJKEQfP0W1eUhP0mcXA09oJ2QURw013J9yEm2TsLCt0LDu8=
+key_version    1
 
 # Return as json and select the ciphertext
 vault write transit/encrypt/training \
@@ -176,9 +183,9 @@ vault write transit/encrypt/training \
 ### Decrypt data
 vault write transit/decrypt/training \
   ciphertext="vault:v1:Vx8+QwqQ6OpgGkaLr4u9yjaTUAQWasemRjpMyHVIyJKEQfP0W1eUhP0mcXA09oJ2QURw013J9yEm2TsLCt0LDu8="
-# Key          Value
-# ---          -----
-# plaintext    R2V0dGluZyBzdGFydGVkIHdpdGggSGFzaGljb3JwIFZhdWx0Cg==
+Key          Value
+---          -----
+plaintext    R2V0dGluZyBzdGFydGVkIHdpdGggSGFzaGljb3JwIFZhdWx0Cg==
 
 # Decrypt, return as json, select just the text and base64 decode
 vault write transit/decrypt/training \
@@ -190,10 +197,10 @@ vault write transit/decrypt/training \
 # This is assuming you have rotated the key, otherwise there is no point
 vault write transit/rewrap/training \
   ciphertext="vault:v1:Vx8+QwqQ6OpgGkaLr4u9yjaTUAQWasemRjpMyHVIyJKEQfP0W1eUhP0mcXA09oJ2QURw013J9yEm2TsLCt0LDu8="
-# Key            Value
-# ---            -----
-# ciphertext     vault:v2:cMrNSeVCOQE2S7Li0Nd1t2AcoiZunfQj+et+Jjv9TaF4THxxpTDBU6VG83v7SAAaqDbL1KdltnUWvidgaa7WVb0=
-# key_version    2
+Key            Value
+---            -----
+ciphertext     vault:v2:cMrNSeVCOQE2S7Li0Nd1t2AcoiZunfQj+et+Jjv9TaF4THxxpTDBU6VG83v7SAAaqDbL1KdltnUWvidgaa7WVb0=
+key_version    2
 
 ### Policies
 # Permit Encryption Operation
@@ -208,7 +215,7 @@ path "transit/decrypt/training" {
 ## [Database Secrets Engine](https://developer.hashicorp.com/vault/docs/secrets/databases)
 
 - Dynamically creates and manages secrets.  
-- Generated Credenetials are based on roles that provide a 1 to 1 mapping to a permission set in the database.
+- Generated Credentials are based on roles that provide a 1 to 1 mapping to a permission set in the database.
 - Credentials are tied to a lease.  When the lease expires Vault deletes the creds from the database.
 - Plugins are used to connect to different database engines.  If the specific plugin does not exist you can use the `custom` plugin to specify how to connect.
 
@@ -242,13 +249,13 @@ vault read database/roles/my-role
 # Get dynamic credentials for the database
 vault read database/creds/<role-name>
 vault read database/creds/my-role
-# Key                Value
-# ---                -----
-# lease_id           database/creds/my-role/2f6a614c-4aa2-7b19-24b9-ad944a8d4de6
-# lease_duration     1h
-# lease_renewable    true
-# password           yY-57n3X5UQhxnmFRP3f
-# username           v_vaultuser_my-role_crBWVqVh2Hc1
+Key                Value
+---                -----
+lease_id           database/creds/my-role/2f6a614c-4aa2-7b19-24b9-ad944a8d4de6
+lease_duration     1h
+lease_renewable    true
+password           yY-57n3X5UQhxnmFRP3f
+username           v_vaultuser_my-role_crBWVqVh2Hc1
 
 # We can revoke the lease if we need to 
 vault lease revoke database/creds/my-role/2f6a614c-4aa2-7b19-24b9-ad944a8d4de6
@@ -258,7 +265,7 @@ vault lease revoke -prefix database/creds/my-role
 
 Static roles are a 1-1 mapping to an existing user in the database.  
 Vault will not change the username as it does with normal roles, but it will rotate the password.  
-This is used in legacy apps that have a static username you must use or in situatios where the roles and security have been set up already.
+This is used in legacy apps that have a static username you must use or in situations where the roles and security have been set up already.
 
 ## [PKI](https://developer.hashicorp.com/vault/docs/secrets/pki)  
 
@@ -334,10 +341,10 @@ vault write cubbyhole/training user=fred pass=abc123
 
 # Read data from cubbyhole
 vault read cubbyhole/training 
-# Key     Value
-# ---     -----
-# pass    abc123
-# user    fred
+Key     Value
+---     -----
+pass    abc123
+user    fred
 ```
 
 ### [Cubbyhole Response Wrapping](https://developer.hashicorp.com/vault/tutorials/secrets-management/cubbyhole-response-wrapping)
@@ -350,23 +357,23 @@ Response wrapping creates a single use token with a short TTL to store the secre
 # Get a wrapped KV secret
 # Only thing we need to add that is different is the -wrap-ttl
 vault kv get -wrap-ttl=5m secret/data/app1/user1
-# Key                              Value
-# ---                              -----
-# wrapping_token:                  hvs.CAESIK7wg9P-OdczciFN_Gy_8NYu5CVhFw0g7lutpVyz39WAGh4KHGh2cy5LdUx1UmwzUDIxRXZmOU9VdlRpU29zMm4
-# wrapping_accessor:               Xplm8tlhAr3NR8IAcEENYxqc
-# wrapping_token_ttl:              5m
-# wrapping_token_creation_time:    2023-05-03 13:48:42.478079432 -0700 PDT
-# wrapping_token_creation_path:    secret/data/app1/user1
+Key                              Value
+---                              -----
+wrapping_token:                  hvs.CAESIK7wg9P-OdczciFN_Gy_8NYu5CVhFw0g7lutpVyz39WAGh4KHGh2cy5LdUx1UmwzUDIxRXZmOU9VdlRpU29zMm4
+wrapping_accessor:               Xplm8tlhAr3NR8IAcEENYxqc
+wrapping_token_ttl:              5m
+wrapping_token_creation_time:    2023-05-03 13:48:42.478079432 -0700 PDT
+wrapping_token_creation_path:    secret/data/app1/user1
 
 # NOTE: the -wrap-ttl command can be used on most (all?) of the secrets engines.
 
 ### Unwrapping by the end user
 # End user could then use the vault cli to unwrap the data.  They would need to already have access to vault with at least policy=default
 vault unwrap hvs.CAESIK7wg9P-OdczciFN_Gy_8NYu5CVhFw0g7lutpVyz39WAGh4KHGh2cy5LdUx1UmwzUDIxRXZmOU9VdlRpU29zMm4
-# Key         Value
-# ---         -----
-# data        map[pass:123]
-# metadata    map[created_time:2023-04-26T21:43:24.692896959Z custom_metadata:<nil> deletion_time: destroyed:false version:1]
+Key         Value
+---         -----
+data        map[pass:123]
+metadata    map[created_time:2023-04-26T21:43:24.692896959Z custom_metadata:<nil> deletion_time: destroyed:false version:1]
 
 # The user could also use the Vault UI but they would need a token to access it.  You can generate a token for them by running:
 vault token create -policy=default
@@ -378,16 +385,16 @@ vault token create -policy=default
 
 The Identity secrets engine is the identity management solution for Vault. It internally maintains the clients who are recognized by Vault. Each client is internally termed as an Entity. An entity can have multiple Aliases. For example, a single user who has accounts in both GitHub and LDAP, can be mapped to a single entity in Vault that has 2 aliases, one of type GitHub and one of type LDAP. When a client authenticates via any of the credential backends (except the Token backend), Vault creates a new entity and attaches a new alias to it, if a corresponding entity doesn't already exist. The entity identifier will be tied to the authenticated token. When such tokens are put to use, their entity identifiers are audit logged, marking a trail of actions performed by specific users.
 
-See [docs](https://developer.hashicorp.com/vault/docs/secrets/identity) for more information.
+See [docs](https://developer.hashicorp.com/vault/docs/secrets/identity)
 
 ```bash
 # Create a new entity
 vault write identity/entity name="Bryan Krausen" policies="manager"
-# Key        Value
-# ---        -----
-# aliases    <nil>
-# id         1ec199dd-bf3a-4ee6-c560-c78050b9fbe6
-# name       Bryan Krausen
+Key        Value
+---        -----
+aliases    <nil>
+id         1ec199dd-bf3a-4ee6-c560-c78050b9fbe6
+name       Bryan Krausen
 
 # NOTE: This has no alias yet, so it's not really doing anything
 
