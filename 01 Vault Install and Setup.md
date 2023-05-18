@@ -25,6 +25,7 @@
 - [Starting Vault in Dev Mode](https://developer.hashicorp.com/vault/tutorials/getting-started/getting-started-dev-server)
 - [Deploy Vault](https://developer.hashicorp.com/vault/tutorials/getting-started/getting-started-deploy) tutorial (single node)
 - [Vault HA Cluster with Integrated Storage](https://developer.hashicorp.com/vault/tutorials/raft/raft-storage)
+- [Vault with Integrated Storage Reference Architecture](https://developer.hashicorp.com/vault/tutorials/day-one-raft/raft-reference-architecture)
 
 ```bash
 # Start vault in dev mode

@@ -1,5 +1,5 @@
 <!-- omit from toc -->
-# Build Fault-Tolerant Vault Environments
+# Fault-Tolerant Vault Environments
 
 - [Configure a Highly Available Cluster](#configure-a-highly-available-cluster)
   - [What Should a Cluster Look Like?](#what-should-a-cluster-look-like)
