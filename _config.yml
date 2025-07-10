@@ -1,0 +1,71 @@
+# Jekyll configuration for GitHub Pages
+title: "Vault Training Notes"
+description: "Training notes for the KodeKloud Vault Certification"
+
+# GitHub Pages uses kramdown by default
+markdown: kramdown
+highlighter: rouge
+
+# Plugin configuration
+plugins:
+  - jekyll-relative-links
+  - jekyll-optional-front-matter
+  - jekyll-readme-index
+  - jekyll-default-layout
+  - jekyll-titles-from-headings
+
+# Enable relative links plugin
+relative_links:
+  enabled: true
+  collections: false
+
+# Add front matter to files without it
+optional_front_matter:
+  enabled: true
+
+# Use README as index
+readme_index:
+  enabled: true
+
+# Default layout for markdown files
+default_layout:
+  enabled: true
+
+# Extract titles from headings
+titles_from_headings:
+  enabled: true
+  strip_title: true
+  collections: false
+
+# Default values for all pages
+defaults:
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+
+# Include patterns
+include:
+  - "_*_.html"
+  - "_*_.*.html"
+
+# Exclude patterns
+exclude:
+  - "*.pdf"
+  - "*.sh"
+  - "*.yaml"
+  - "*.yml"
+  - ".git*"
+  - "Gemfile*"
+  - "vendor"
+
+# Kramdown configuration
+kramdown:
+  input: GFM
+  hard_wrap: false
+  syntax_highlighter: rouge

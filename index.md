@@ -7,18 +7,18 @@ The slides for these two trainings can be seen in the `associate-training` and `
 
 ## Table of Contents
 
-1. [Vault Install and Setup](01%20Vault%20Install%20and%20Setup.md)
-2. [Fault-Tolerant Vault Environments](02%20Fault-Tolerant%20Vault%20Environments.md)
-3. [Monitoring a Vault Environment](03%20Monitoring%20a%20Vault%20Environment.md)
-4. [Production Hardening](04%20Production%20Hardening.md)
-5. [Auth Methods](05%20Auth%20Methods.md)
-6. [Access Control and Policies](06%20Access%20Control%20and%20Policies.md)
-7. [Maintenance](07%20Maintenance.md)
-8. [HSM Integration (Enterprise)](08%20HSM%20Integration%20(Enterprise).md)
-9. [Vault Security Model](09%20Vault%20Security%20Model.md)
-10. [Secrets Engines](10%20Secrets%20Engines.md)
-11. [Vault Agent](11%20Vault%20Agent.md)
-12. [Scale Vault For Performance](12%20Scale%20Vault%20For%20Performance.md)
+1. [Vault Install and Setup](01%20Vault%20Install%20and%20Setup)
+2. [Fault-Tolerant Vault Environments](02%20Fault-Tolerant%20Vault%20Environments)
+3. [Monitoring a Vault Environment](03%20Monitoring%20a%20Vault%20Environment)
+4. [Production Hardening](04%20Production%20Hardening)
+5. [Auth Methods](05%20Auth%20Methods)
+6. [Access Control and Policies](06%20Access%20Control%20and%20Policies)
+7. [Maintenance](07%20Maintenance)
+8. [HSM Integration (Enterprise)](08%20HSM%20Integration%20(Enterprise))
+9. [Vault Security Model](09%20Vault%20Security%20Model)
+10. [Secrets Engines](10%20Secrets%20Engines)
+11. [Vault Agent](11%20Vault%20Agent)
+12. [Scale Vault For Performance](12%20Scale%20Vault%20For%20Performance)
 
 ## General Notes
 

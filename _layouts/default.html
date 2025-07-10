@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>{{ page.title | default: site.title | default: site.github.repository_name }}</title>
+    <meta name="description" content="{{ page.description | default: site.description | default: site.github.project_tagline }}"/>
+
+    <link rel="stylesheet" href="{{ '/assets/css/style.css?v=' | append: site.github.build_revision | relative_url }}">
+    <style>
+      .main-content {
+        max-width: 64rem;
+        padding: 2rem 6rem;
+        margin: 0 auto;
+        font-size: 1.1rem;
+      }
+      
+      .main-content h1, .main-content h2, .main-content h3, .main-content h4, .main-content h5, .main-content h6 {
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        font-weight: normal;
+        color: #159957;
+      }
+      
+      .main-content h1 {
+        font-size: 2.25rem;
+      }
+      
+      .main-content h2 {
+        font-size: 1.75rem;
+      }
+      
+      .main-content h3 {
+        font-size: 1.25rem;
+      }
+      
+      .main-content p {
+        margin-bottom: 1em;
+      }
+      
+      .main-content code {
+        padding: 2px 4px;
+        font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+        font-size: 0.9rem;
+        color: #567482;
+        background-color: #f3f6fa;
+        border-radius: 0.3rem;
+      }
+      
+      .main-content pre {
+        padding: 0.8rem;
+        margin-top: 0;
+        margin-bottom: 1rem;
+        font: 1rem Consolas, "Liberation Mono", Menlo, Courier, monospace;
+        color: #567482;
+        word-wrap: normal;
+        background-color: #f3f6fa;
+        border: solid 1px #dce6f0;
+        border-radius: 0.3rem;
+      }
+      
+      .main-content pre > code {
+        padding: 0;
+        margin: 0;
+        font-size: 0.9rem;
+        color: #567482;
+        word-break: normal;
+        white-space: pre;
+        background: transparent;
+        border: 0;
+      }
+      
+      .main-content a {
+        color: #1e6bb8;
+        text-decoration: none;
+      }
+      
+      .main-content a:hover {
+        text-decoration: underline;
+      }
+      
+      .main-content blockquote {
+        padding: 0 1rem;
+        margin-left: 0;
+        color: #819198;
+        border-left: 0.3rem solid #dce6f0;
+      }
+      
+      .main-content table {
+        display: block;
+        width: 100%;
+        overflow: auto;
+        word-break: normal;
+        word-break: keep-all;
+        -webkit-overflow-scrolling: touch;
+      }
+      
+      .main-content table th {
+        font-weight: bold;
+      }
+      
+      .main-content table th, .main-content table td {
+        padding: 0.5rem 1rem;
+        border: 1px solid #e9ebec;
+      }
+      
+      .page-header {
+        color: #fff;
+        text-align: center;
+        background-color: #159957;
+        background-image: linear-gradient(120deg, #155799, #159957);
+        padding: 5rem 6rem;
+      }
+      
+      .project-name {
+        margin-top: 0;
+        margin-bottom: 0.1rem;
+        font-size: 3.25rem;
+        font-weight: normal;
+      }
+      
+      .project-tagline {
+        margin-bottom: 2rem;
+        font-weight: normal;
+        opacity: 0.7;
+        font-size: 1.25rem;
+      }
+      
+      .btn {
+        display: inline-block;
+        margin-bottom: 1rem;
+        color: rgba(255, 255, 255, 0.7);
+        background-color: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.2);
+        border-style: solid;
+        border-width: 1px;
+        border-radius: 0.3rem;
+        transition: color 0.2s, background-color 0.2s, border-color 0.2s;
+        text-decoration: none;
+        padding: 0.75rem 1rem;
+      }
+      
+      .btn:hover {
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        background-color: rgba(255, 255, 255, 0.2);
+        border-color: rgba(255, 255, 255, 0.3);
+      }
+      
+      @media screen and (max-width: 64em) {
+        .main-content {
+          padding: 2rem 4rem;
+          font-size: 1rem;
+        }
+        
+        .page-header {
+          padding: 3rem 4rem;
+        }
+        
+        .project-name {
+          font-size: 2.25rem;
+        }
+        
+        .project-tagline {
+          font-size: 1rem;
+        }
+      }
+      
+      @media screen and (max-width: 42em) {
+        .main-content {
+          padding: 2rem 1rem;
+          font-size: 1rem;
+        }
+        
+        .page-header {
+          padding: 2rem 1rem;
+        }
+        
+        .project-name {
+          font-size: 1.75rem;
+        }
+        
+        .project-tagline {
+          font-size: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="page-header">
+      <h1 class="project-name">{{ page.title | default: site.title | default: site.github.repository_name }}</h1>
+      <h2 class="project-tagline">{{ page.description | default: site.description | default: site.github.project_tagline }}</h2>
+      <a href="{{ site.github.repository_url }}" class="btn">View on GitHub</a>
+      {% if page.url != "/" %}
+        <a href="{{ "/" | relative_url }}" class="btn">← Back to Table of Contents</a>
+      {% endif %}
+    </section>
+
+    <section class="main-content">
+      {{ content }}
+
+      <footer class="site-footer">
+        {% if site.github.is_project_page %}
+          <span class="site-footer-owner"><a href="{{ site.github.repository_url }}">{{ site.github.repository_name }}</a> is maintained by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a>.</span>
+        {% endif %}
+      </footer>
+    </section>
+  </body>
+</html>
