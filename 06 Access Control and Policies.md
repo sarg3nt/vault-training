@@ -28,7 +28,7 @@ Vault supports multiple authentication methods and also allows enabling the same
 
 Vault clients can be mapped as entities and their corresponding accounts with authentication providers can be mapped as aliases. In essence, each entity is made up of zero or more aliases. Identity secrets engine internally maintains the clients who are recognized by Vault.
 
-There are two types of groups `internal` and `external`.  
+There are two types of groups `internal` and `external`.
 Internal groups are manually created in vault while external groups are automatically created when inferred from an auth method.  
 
 > **NOTE:** OIDC groups are not automatically created.
@@ -38,10 +38,10 @@ Internal groups are manually created in vault while external groups are automati
 - Vault creates an entity and attaches an alias to it if a corresponding entity doesn't already exist.
 - This is done using the Identity secrets engine, which manages internal identities that are recognized by Vault
 - An `entity` is a representation of a single person or system used to log into Vault. Each has a unique value. Each entity is made up of zero or more aliases
-- An `alias` is a combination of the auth method plus some identification.  It is a mapping between an entity and auth method(s)
+- An `alias` is a combination of the auth method plus some identification. It is a mapping between an entity and auth method(s)
 - An entity can be manually created to map multiple entities for a single user to provide more efficient authorization management
 - Any tokens that are created for the entity inherit the capabilities that are granted by alias(es)
-- Not everyone creates manual entities as most of the time there's just one auth method enabled.  Can be useful if you have multiple accounts that you want to tie together to inherit privileges.
+- Not everyone creates manual entities as most of the time there's just one auth method enabled. Can be useful if you have multiple accounts that you want to tie together to inherit privileges.
 - [Slides 1-14](operations-training/07-Configure-Access-Control.pdf)
 
 ```bash
@@ -85,7 +85,7 @@ token/    token    auth_token_0dc86457    token based credentials    n/a
   - Helpful when you don't want to configure an identical auth method on every single namespace
 - **External groups** are manually or automatically created and are used to set permissions based on group membership from an external identity provider, such as LDAP, Okta, or OIDC provider.
   - Allows you to set up once in Vault and continue manage permissions in the identity provider.
-  - Note that the group name must match the group name in your identity provide
+  - Note that the group name must match the group name in your identity provider
 
 ## Vault Policies
 
@@ -228,7 +228,7 @@ path "kv/apps/webapp/super_secret" {
 }
 ```
 
-> **NOTE:** The above policy would not allow a user to browser `kv/apps/webapp` in the Web UI.  We would need to grant `list` to those paths.
+> **NOTE:** The above policy would not allow a user to browse `kv/apps/webapp` in the Web UI. We would need to grant `list` to those paths.
 
 ## Customizing the Path
 

@@ -58,8 +58,8 @@ vault write auth/approle/role/hcvop policies=devops \
 
 ## Use Cases of Performance Standby Nodes (Enterprise)
 
-- Vault Open Source clusters are scale up.  Only the master node can perform reads and writes, the standby nodes must forward all traffic to the master.
-- Vault Enterprise clusters are scale out.  The standby nodes can perform reads but must send writes to the master.  These are called Performance Standby nodes.
+- Vault Open Source clusters are scale up. Only the master node can perform reads and writes, the standby nodes must forward all traffic to the master.
+- Vault Enterprise clusters are scale out. The standby nodes can perform reads but must send writes to the master. These are called Performance Standby nodes.
 - This feature is only available in Vault Enterprise
 - [Slides 15-23](operations-training/06-Scale-Vault-for-Performance.pdf)
 
@@ -70,12 +70,12 @@ vault write auth/approle/role/hcvop policies=devops \
 
 ## Creating a Paths Filter (Enterprise)
 
-Creates an allow or deny list to determine what paths get replicated to other clusters.  
-This is useful for the cases where we have clusters in different regions and there are local laws that restrict the export of user information.  For example, we cannot export user PII from Europe to other regions so we could restrict the replication of the secrets engine that has that data.
+Creates an allow or deny list to determine what paths get replicated to other clusters.
+This is useful for the cases where we have clusters in different regions and there are local laws that restrict the export of user information. For example, we cannot export user PII from Europe to other regions so we could restrict the replication of the secrets engine that has that data.
 
 - An allow list would **only** allow those paths listed
 - A deny list would replicate all paths not listed in the deny list
-- We can also restrict a mount with the `-local` flag so it is not replicated.  For example if we wanted a `kv-v2` secrets engine called `apac` on the secondary cluster to not be replicated back to the primary we could run  
+- We can also restrict a mount with the `-local` flag so it is not replicated. For example if we wanted a `kv-v2` secrets engine called `apac` on the secondary cluster to not be replicated back to the primary we could run  
 `vault secrets enable -path=apac -local kv-v2`
 - Enable a paths filter on a secondary cluster with  
 `vault write sys/replication/performance/primary/paths-filter/<cluster-id> mode=allow paths=aws/,hcvop/,customers/`

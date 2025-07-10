@@ -32,16 +32,16 @@ When any other auth method returns an identity, Vault core invokes the token met
 
 The token store can also be used to bypass any other auth method: you can create tokens directly, as well as perform a variety of other operations on tokens such as renewal and revocation.
 
-Wee the [token concepts](https://developer.hashicorp.com/vault/docs/concepts/tokens) page for more on tokens.
+See the [token concepts](https://developer.hashicorp.com/vault/docs/concepts/tokens) page for more on tokens.
 
 ### Types of Tokens
 
-- Service Tokens: (main type and the default).  Starts with `hvs.`
-- Batch Tokens: Not written to storage back end. Used for high volume requests, replication etc.  Replicated to all clusters, start with `hvb.`
-- Periodic Token: Is a type of service token but does not have a max TTL so it can be refreshed indefinitely.  Create with `-period=24h`.  Useful for an application where it would be very difficult to change the token.
-- Use Limited Token: Is a type of service token but can be used only the number of times stated during creation.  Create with `-use-limit=2`.  These tokens still has a ttl so it can time out before the number of uses is hit.
+- Service Tokens: (main type and the default). Starts with `hvs.`
+- Batch Tokens: Not written to storage back end. Used for high volume requests, replication etc. Replicated to all clusters, start with `hvb.`
+- Periodic Token: Is a type of service token but does not have a max TTL so it can be refreshed indefinitely. Create with `-period=24h`. Useful for an application where it would be very difficult to change the token.
+- Use Limited Token: Is a type of service token but can be used only the number of times stated during creation. Create with `-use-limit=2`. These tokens still have a ttl so it can time out before the number of uses is hit.
 - Orphan Token: A token that is not revoked when the parent token is revoked. Create with `-orphan`
-- These flags can be set in auth as well.  
+- These flags can be set in auth as well.
   `vault write auth/approle/role/hcvop policies="hcvop" period="72h"`
 
 [Slides 277-288](operations-training/01-Create-a-working-Vault-server-configuration-given-a-scenario.pdf))
@@ -150,7 +150,7 @@ Encoded Token    WgdGagkMITsMAWcjLjwrB0c1CjcBI149Lz1vLg
 vault operator generate-root -status
 
 ### STEP 3
-# Once we have all three shareded keys entered we will recieve the "Encoded Token" shown above.
+# Once we have all three sharded keys entered we will receive the "Encoded Token" shown above.
 # We can now decrypt that token using the One Time Key we were given in step 1, -init
 vault operator generate-root \
   -otp="2q5DsjyyMSVIaoc0teSXwrnxfr6A" \
@@ -165,7 +165,7 @@ The approle auth method allows machines or apps to authenticate with Vault-defin
 ### Notes
 
 - When working with a fleet of servers needing the same role, it is best practice to reuse the `role-id` but generate a new `secret-id` for each server
-- Whenever possible a new `secret-id` should be injected during provisioning of the application, for example, during CI/CD Jenkins would call Vault to generate a new response wrapped `secret-id` and then inject the token into the application on deployment. The app could then use that token to unwrap the `secret-id`.  See [slide 253](operations-training/01-Create-a-working-Vault-server-configuration-given-a-scenario.pdf)) for a diagram.
+- Whenever possible a new `secret-id` should be injected during provisioning of the application, for example, during CI/CD Jenkins would call Vault to generate a new response wrapped `secret-id` and then inject the token into the application on deployment. The app could then use that token to unwrap the `secret-id`. See [slide 253](operations-training/01-Create-a-working-Vault-server-configuration-given-a-scenario.pdf)) for a diagram.
 - [Slides 251-265](operations-training/01-Create-a-working-Vault-server-configuration-given-a-scenario.pdf)) for more on approle.
 
 ### AppRole Commands
@@ -231,7 +231,7 @@ vault write auth/okta/groups/mygroupname policies=bryan
 
 ## [Userpass](https://developer.hashicorp.com/vault/docs/auth/userpass)
 
-Locally stored user accounts.  Probably should not use.
+Locally stored user accounts. Probably should not use.
 
 ```bash
 vault auth enable userpass

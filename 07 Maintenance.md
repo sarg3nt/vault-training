@@ -15,7 +15,7 @@
 > **NOTE:** Can not rekey vault without the minimum number of unseal keys
 
 - Creates a new set of Vault recovery/unseal keys
-- Allows you to specify the number of keys and threshold during the rekey process.  Does not have to match current number of keys and threshold
+- Allows you to specify the number of keys and threshold during the rekey process. Does not have to match current number of keys and threshold
 - Requires a threshold of keys to successfully rekey (similar to an unseal or root token generation)
 - Provides a nonce value to be given to key holders
 
@@ -68,7 +68,7 @@ Operation nonce: 847122f2-5537-c676-f9b7-fb545deb4c7a
 
 ## Key Rotation
 
-Rekeying vault creates a new master key on the back end (which protects the encryption key).  Key rotation creates a new Encryption key.
+Rekeying vault creates a new master key on the back end (which protects the encryption key). Key rotation creates a new Encryption key.
 
 - Rotates the encryption key that is used to protect data on the storage backend
 - Since the encryption key is never available to users or operators, it does NOT require a threshold of key holders to rotate

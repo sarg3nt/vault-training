@@ -47,7 +47,7 @@
 
 ### [Secret Zero Authentication Examples from Starbucks](https://www.hashicorp.com/resources/starbucks-secrets-at-the-retail-edge-with-hashicorp-vault)
 
-> **NOTE** There are several more patterns mentioned in the above article but I"m pasting the two I think will be helpful to us here.  These would be in addition to the trusted orchestrator pattern (using Kubernetes to inject the secret-id at start up) and along with the CD pattern (having Jenkins inject a `secret-id` file).
+> **NOTE** There are several more patterns mentioned in the above article but I'm pasting the two I think will be helpful to us here. These would be in addition to the trusted orchestrator pattern (using Kubernetes to inject the secret-id at start up) and along with the CD pattern (having Jenkins inject a `secret-id` file).
 
 #### Client Pull
 

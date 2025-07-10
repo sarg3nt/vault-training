@@ -1,6 +1,6 @@
 # Jekyll configuration for GitHub Pages
 title: "Vault Training Notes"
-description: "Training notes for the KodeKloud Vault Certification"
+description: "Training notes from the KodeKloud courses \"HashiCorp Certified: Vault Associate\" and \"HashiCorp Certified: Vault Operations Professional 2022\""
 
 # GitHub Pages uses kramdown by default
 markdown: kramdown

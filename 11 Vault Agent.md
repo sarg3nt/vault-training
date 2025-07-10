@@ -17,7 +17,7 @@
   - [Vault Agent Templating](#vault-agent-templating)
     - [Template Configuration](#template-configuration)
 
-The Vault Agent is a client daemon that runs alongside an application to enable legacy applications to interact and consume secrets
+The Vault Agent is a client daemon that runs alongside an application to enable legacy applications to interact and consume secrets.
 
 Vault Agent provides several different features:
 
@@ -37,16 +37,16 @@ Vault Agent provides several different features:
 - The application can read this token and invoke the Vault API directly
 - This strategy allows the Vault Agent to manage the token and guarantee a valid token is always available to the application
 
-Vault Agent supports many types of auth methods to authenticate and obtain a token
+Vault Agent supports many types of auth methods to authenticate and obtain a token.
 
-Auth methods are generally the methods you'd associate with "machine-oriented" auth methods
+Auth methods are generally the methods you'd associate with "machine-oriented" auth methods:
 
 - AliCloud
 - AppRole
 - AWS
 - Azure
 - Certificate
-- CloudFoundary
+- CloudFoundry
 - GCP
 - JWT
 - Kerberos
@@ -109,12 +109,12 @@ Common configuration parameters include:
 
 ### Protecting the Token using Response Wrapping
 
-To help secure tokens when using Auth-Auth, you can have Vault response wrap the token when the Vault Agent authenticates
+To help secure tokens when using Auto-Auth, you can have Vault response wrap the token when the Vault Agent authenticates
 
 - Response wrapped by the auth method
 - Response wrapped by the token sink
 
-The placement of the `wrap_ttl` in the Vault Agent configuration file determines where the response wrapping happens
+The placement of the `wrap_ttl` in the Vault Agent configuration file determines where the response wrapping happens.
 
 ### Response-Wrapping the Token - Comparison
 
@@ -128,7 +128,7 @@ The placement of the `wrap_ttl` in the Vault Agent configuration file determines
   - Pros:
     - Allows the Vault agent to renew the token and re-authenticate when the token expires
   - Cons:
-    - The token gets wrapped after it is retrieved from Vault. Therefore, it is vulnerable to MITM attack
+    - The token gets wrapped after it is retrieved from Vault. Therefore, it is vulnerable to MITM attacks
 
 Response Wrapped by the Auth Method:
 
@@ -185,7 +185,7 @@ vault {
 
 [Slides 15-24](operations-training/08-Configure-Vault-Agent.pdf)
 
-- Templating is typically for legacy applications that cannot reach out to the Vault API and get secrets for itself.  
+- Templating is typically for legacy applications that cannot reach out to the Vault API and get secrets for itself.
 - Templating should not be used for modern / internal applications we have control over.
 - There are Vault integrations with most programming languages.
   - [.Net](https://developer.hashicorp.com/vault/tutorials/app-integration/dotnet-httpclient)
@@ -203,7 +203,7 @@ vault {
 ### Consul Template - Workflow
 
 1. Create a templated file that specifies the path and data you want
-2. Execute Consul Template.  Consul Template retrieves data and renders to destination file
+2. Execute Consul Template. Consul Template retrieves data and renders to destination file
 3. The application reads the new file at runtime that includes secrets retrieved from Vault
 
 #### Create a templated file

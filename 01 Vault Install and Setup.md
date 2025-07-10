@@ -122,7 +122,7 @@ storage "raft" {
 
 - Initial configuration of Integrated Storage is done in the Vault configuration file
 - Multiple ways to join nodes to create a Vault cluster in the configuration file....or you do it manually
-- Use `retry_join` stanza to automate the creation of the cluster from participating Vault nodes.  This should work with VMWare labels
+- Use `retry_join` stanza to automate the creation of the cluster from participating Vault nodes. This should work with VMWare labels
 - `path` = the filesystem path where all the Vault data will be stored
 - `node_id` = the identifier for the node in the cluster – cannot be duplicated within a cluster
 - `retry_join` [optional] – automatically join the listed nodes to create a cluster
@@ -238,7 +238,7 @@ A [Github repo](https://github.com/adfinis/vault-raft-backup-agent) that has a d
 
 - According to [this](https://developer.hashicorp.com/vault/docs/enterprise/automated-integrated-storage-snapshots) only the active node should be doing snapshot so we need to modify the above to make sure the current node is the active node then run the snap
 - Script to also manage how many snaps to retain
-- Destination could probably be an NFS share or we could use the S3 tool mentioned in the above repo and move snaps to Flashblade.  Check with Pickering on what he thinks would be best.
+- Destination could probably be an NFS share or we could use the S3 tool mentioned in the above repo and move snaps to Flashblade. Check with Pickering on what he thinks would be best.
 - Script should check local storage for available space and throw alert to alerting system if space is to small.
 - Throw alert to alerting system if snapshot fails or there is not auth key
 - [Vault Integrated Storage Autopilot](https://developer.hashicorp.com/vault/tutorials/raft/raft-autopilot)
@@ -260,7 +260,7 @@ vault operator unseal
 
 ```bash
 ### On the transit server (keymaster), create the unseal key and policy
-# Enable transit secretes engine if it's not already enabled
+# Enable transit secrets engine if it's not already enabled
 vault secrets enable transit
 # Create the unseal key
 vault write -f transit/keys/autounseal
@@ -307,7 +307,7 @@ seal "transit" {
 
 # Initialize the vault instance
 vault operator init
-# The server should now be initialized and unsealed.  Record and distribute the recovery keys
+# The server should now be initialized and unsealed. Record and distribute the recovery keys
 ```
 
 ## Secure Vault Initialization with PGP

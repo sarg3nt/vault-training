@@ -100,7 +100,7 @@ vault kv get -format=json secret/app1/dbconnection
 vault kv get -version=1 secret/app1/dbconnection
 # Gets all of the metadata for every version at once
 vault kv metadata secret/app1/dbconnection
-# List paths and secrets.  If it ends with a / it is a path
+# List paths and secrets. If it ends with a / it is a path
 vault kv list secret/
 vault kv list secret/app1/
 
@@ -214,16 +214,16 @@ path "transit/decrypt/training" {
 
 ## [Database Secrets Engine](https://developer.hashicorp.com/vault/docs/secrets/databases)
 
-- Dynamically creates and manages secrets.  
+- Dynamically creates and manages secrets.
 - Generated Credentials are based on roles that provide a 1 to 1 mapping to a permission set in the database.
-- Credentials are tied to a lease.  When the lease expires Vault deletes the creds from the database.
-- Plugins are used to connect to different database engines.  If the specific plugin does not exist you can use the `custom` plugin to specify how to connect.
+- Credentials are tied to a lease. When the lease expires Vault deletes the creds from the database.
+- Plugins are used to connect to different database engines. If the specific plugin does not exist you can use the `custom` plugin to specify how to connect.
 
 ```bash
 # Enable secrets engine
 vault secrets enable database
 
-# Configure a mysql connection.  Pressing enter will cause vault to validate the connection
+# Configure a mysql connection. Pressing enter will cause vault to validate the connection
 vault write database/config/my-mysql-database \
     plugin_name=mysql-database-plugin \
     connection_url="{{username}}:{{password}}@tcp(127.0.0.1:3306)/" \
@@ -349,9 +349,9 @@ user    fred
 
 ### [Cubbyhole Response Wrapping](https://developer.hashicorp.com/vault/tutorials/secrets-management/cubbyhole-response-wrapping)
 
-Scenario.  You need to get secrets to a user that does not have vault access but do not want to transmit them over third party systems.
+Scenario. You need to get secrets to a user that does not have vault access but do not want to transmit them over third party systems.
 
-Response wrapping creates a single use token with a short TTL to store the secrets in.  The wrapping token can then be sent to the user via Teams, email, etc.  The user can then use that token to get the secret and because it is single use it will then auto destruct.
+Response wrapping creates a single use token with a short TTL to store the secrets in. The wrapping token can then be sent to the user via Teams, email, etc. The user can then use that token to get the secret and because it is single use it will then auto destruct.
 
 ```bash
 # Get a wrapped KV secret
