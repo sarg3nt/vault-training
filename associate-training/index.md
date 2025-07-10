@@ -4,10 +4,10 @@ This folder contains the training slides for the HashiCorp Certified: Vault Asso
 
 ## Table of Contents
 
-1. [Vault Introduction](0-Vault-Introduction.pdf)
-2. [Objective 1: Compare Authentication Methods](Objective-1-Compare-Authentication-Methods.pdf)
-3. [Objective 2: Create Vault Policies](Objective-2-Create-Vault-policies.pdf)
-4. [Objective 3: Tokens](Objective-3-Tokens.pdf)
+1. [Vault Introduction](https://github.com/sarg3nt/vault-training/blob/main/associate-training/0-Vault-Introduction.pdf)
+2. [Objective 1: Compare Authentication Methods](https://github.com/sarg3nt/vault-training/blob/main/associate-training/Objective-1-Compare-Authentication-Methods.pdf)
+3. [Objective 2: Create Vault Policies](https://github.com/sarg3nt/vault-training/blob/main/associate-training/Objective-2-Create-Vault-policies.pdf)
+4. [Objective 3: Tokens](https://github.com/sarg3nt/vault-training/blob/main/associate-training/Objective-3-Tokens.pdf)
 
 ## About
 

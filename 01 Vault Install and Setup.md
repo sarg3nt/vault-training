@@ -87,7 +87,7 @@ Use [this](https://github.com/btkrausen/hashicorp/blob/master/vault/config_files
 
 ## [Integrated Storage](https://developer.hashicorp.com/vault/docs/concepts/integrated-storage)
 
-- [Slides 213-235](operations-training/01-Create-a-working-Vault-server-configuration-given-a-scenario.pdf))
+- [Slides 213-235](https://github.com/sarg3nt/vault-training/blob/main/operations-training/01-Create-a-working-Vault-server-configuration-given-a-scenario.pdf))
 - [Vault HA Cluster with Integrated Storage](https://developer.hashicorp.com/vault/tutorials/raft/raft-storage)
 
 ```bash
@@ -230,7 +230,7 @@ vault operator raft snapshot save <file_name>
 vault operator raft snapshot restore <file_name>
 ```
 
-[Slides 1-13](operations-training/04-Build-Fault-Tolerant-Vault-Environments.pdf))
+[Slides 1-13](https://github.com/sarg3nt/vault-training/blob/main/operations-training/04-Build-Fault-Tolerant-Vault-Environments.pdf))
 
 ### Notes On Automating Snapshots
 
@@ -245,8 +245,8 @@ A [Github repo](https://github.com/adfinis/vault-raft-backup-agent) that has a d
 
 ## Init & Unseal
 
-- [Slides 185-198](operations-training/01-Create-a-working-Vault-server-configuration-given-a-scenario.pdf)) for auto unseal setup
-- [Slides 199-212](operations-training/01-Create-a-working-Vault-server-configuration-given-a-scenario.pdf)#120) for unseal migrations
+- [Slides 185-198](https://github.com/sarg3nt/vault-training/blob/main/operations-training/01-Create-a-working-Vault-server-configuration-given-a-scenario.pdf)) for auto unseal setup
+- [Slides 199-212](https://github.com/sarg3nt/vault-training/blob/main/operations-training/01-Create-a-working-Vault-server-configuration-given-a-scenario.pdf)#120) for unseal migrations
 
 ```bash
 # Init vault
@@ -344,4 +344,4 @@ To decrypt a key
 echo "<provided key>" | base64 -d | gpg -dq
 ```
 
-[Slides 289-304](operations-training/01-Create-a-working-Vault-server-configuration-given-a-scenario.pdf))
+[Slides 289-304](https://github.com/sarg3nt/vault-training/blob/main/operations-training/01-Create-a-working-Vault-server-configuration-given-a-scenario.pdf))

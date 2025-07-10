@@ -23,9 +23,9 @@ The content that was in this section was integrated into the install content her
 ## Enable and Configure Disaster Recovery Replication (Enterprise)
 
 - This feature is only available in Vault Enterprise
-- [Slides 14-41](operations-training/04-Build-Fault-Tolerant-Vault-Environments.pdf))
+- [Slides 14-41](https://github.com/sarg3nt/vault-training/blob/main/operations-training/04-Build-Fault-Tolerant-Vault-Environments.pdf))
 
 ## Promote a Secondary Cluster (Enterprise)
 
 - This feature is only available in Vault Enterprise
-- [Slides 42-52](operations-training/04-Build-Fault-Tolerant-Vault-Environments.pdf))
+- [Slides 42-52](https://github.com/sarg3nt/vault-training/blob/main/operations-training/04-Build-Fault-Tolerant-Vault-Environments.pdf))

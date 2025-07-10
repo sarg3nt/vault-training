@@ -44,7 +44,7 @@ See the [token concepts](https://developer.hashicorp.com/vault/docs/concepts/tok
 - These flags can be set in auth as well.
   `vault write auth/approle/role/hcvop policies="hcvop" period="72h"`
 
-[Slides 277-288](operations-training/01-Create-a-working-Vault-server-configuration-given-a-scenario.pdf))
+[Slides 277-288](https://github.com/sarg3nt/vault-training/blob/main/operations-training/01-Create-a-working-Vault-server-configuration-given-a-scenario.pdf))
 
 ### Token Commands
 
@@ -119,7 +119,7 @@ vault token renew -accessor gFgh4kfjK459K4k599fKNMb4
 - In case normal login is broken
 - A root token is needed for a particular task
 
-[Slides 305-314](operations-training/01-Create-a-working-Vault-server-configuration-given-a-scenario.pdf)) for more on tokens.
+[Slides 305-314](https://github.com/sarg3nt/vault-training/blob/main/operations-training/01-Create-a-working-Vault-server-configuration-given-a-scenario.pdf)) for more on tokens.
 
 ```bash
 ### STEP 1
@@ -165,8 +165,8 @@ The approle auth method allows machines or apps to authenticate with Vault-defin
 ### Notes
 
 - When working with a fleet of servers needing the same role, it is best practice to reuse the `role-id` but generate a new `secret-id` for each server
-- Whenever possible a new `secret-id` should be injected during provisioning of the application, for example, during CI/CD Jenkins would call Vault to generate a new response wrapped `secret-id` and then inject the token into the application on deployment. The app could then use that token to unwrap the `secret-id`. See [slide 253](operations-training/01-Create-a-working-Vault-server-configuration-given-a-scenario.pdf)) for a diagram.
-- [Slides 251-265](operations-training/01-Create-a-working-Vault-server-configuration-given-a-scenario.pdf)) for more on approle.
+- Whenever possible a new `secret-id` should be injected during provisioning of the application, for example, during CI/CD Jenkins would call Vault to generate a new response wrapped `secret-id` and then inject the token into the application on deployment. The app could then use that token to unwrap the `secret-id`. See [slide 253](https://github.com/sarg3nt/vault-training/blob/main/operations-training/01-Create-a-working-Vault-server-configuration-given-a-scenario.pdf)) for a diagram.
+- [Slides 251-265](https://github.com/sarg3nt/vault-training/blob/main/operations-training/01-Create-a-working-Vault-server-configuration-given-a-scenario.pdf)) for more on approle.
 
 ### AppRole Commands
 

@@ -31,7 +31,7 @@
 - [telemetry Stanza](https://developer.hashicorp.com/vault/docs/configuration/telemetry)
 - [Telemetry Metrics Reference](https://developer.hashicorp.com/vault/tutorials/monitoring/telemetry-metrics-reference)
 - [Monitor Telemetry with Prometheus & Grafana](https://developer.hashicorp.com/vault/tutorials/monitoring/monitor-telemetry-grafana-prometheus)
-- [Slides 1-7](operations-training/02-Monitor-a-Vault-Environment.pdf))
+- [Slides 1-7](https://github.com/sarg3nt/vault-training/blob/main/operations-training/02-Monitor-a-Vault-Environment.pdf))
 
 ```bash
 # Set in vault config file
@@ -77,7 +77,7 @@ telemetry {
 
 - [Audit Devices](https://developer.hashicorp.com/vault/docs/audit)
 - [Vault Audit Log Details](https://support.hashicorp.com/hc/en-us/articles/360000995548-Audit-and-Operational-Log-Details)
-- [Slides 8-16](operations-training/02-Monitor-a-Vault-Environment.pdf)
+- [Slides 8-16](https://github.com/sarg3nt/vault-training/blob/main/operations-training/02-Monitor-a-Vault-Environment.pdf)
 
 ```bash
 # Enable file audit device at default path
@@ -152,7 +152,7 @@ path "sys/audit/file" {
 
 ### Logging Links
 
-- [Slides 17-23](operations-training/02-Monitor-a-Vault-Environment.pdf)
+- [Slides 17-23](https://github.com/sarg3nt/vault-training/blob/main/operations-training/02-Monitor-a-Vault-Environment.pdf)
 
 ```bash
 # Can view logs using journalctl

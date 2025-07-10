@@ -31,7 +31,7 @@
 - This means no downtime for performing this operation
 - Vault continues to service requests during the rekey operation
 
-[Slides 315-327](operations-training/01-Create-a-working-Vault-server-configuration-given-a-scenario.pdf)
+[Slides 315-327](https://github.com/sarg3nt/vault-training/blob/main/operations-training/01-Create-a-working-Vault-server-configuration-given-a-scenario.pdf)
 
 ### Rekey Procedure
 

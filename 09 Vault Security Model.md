@@ -38,12 +38,12 @@
 
 ### Methods of Providing Authentication to Vault
 
-- Secure Platform: [slide 4](operations-training/03-Employ-the-Vault-Security-Model.pdf))
-- Secure Orchestrator (CI/CD): [slide 5](operations-training/03-Employ-the-Vault-Security-Model.pdf))
-- Secure Orchestrator (Terraform): [slide 6](operations-training/03-Employ-the-Vault-Security-Model.pdf))
-- Vault Agent - Auto Auth: [slide 7](operations-training/03-Employ-the-Vault-Security-Model.pdf))
+- Secure Platform: [slide 4](https://github.com/sarg3nt/vault-training/blob/main/operations-training/03-Employ-the-Vault-Security-Model.pdf))
+- Secure Orchestrator (CI/CD): [slide 5](https://github.com/sarg3nt/vault-training/blob/main/operations-training/03-Employ-the-Vault-Security-Model.pdf))
+- Secure Orchestrator (Terraform): [slide 6](https://github.com/sarg3nt/vault-training/blob/main/operations-training/03-Employ-the-Vault-Security-Model.pdf))
+- Vault Agent - Auto Auth: [slide 7](https://github.com/sarg3nt/vault-training/blob/main/operations-training/03-Employ-the-Vault-Security-Model.pdf))
 
-[Slides 1-7](operations-training/03-Employ-the-Vault-Security-Model.pdf)
+[Slides 1-7](https://github.com/sarg3nt/vault-training/blob/main/operations-training/03-Employ-the-Vault-Security-Model.pdf)
 
 ### [Secret Zero Authentication Examples from Starbucks](https://www.hashicorp.com/resources/starbucks-secrets-at-the-retail-edge-with-hashicorp-vault)
 
@@ -146,4 +146,4 @@ spec:
 - [Vault on Kubernetes Deployment Guide](https://developer.hashicorp.com/vault/tutorials/kubernetes/kubernetes-raft-deployment-guide)
 - [Running Vault with Kubernetes](https://www.hashicorp.com/products/vault/kubernetes)
 - [Vault Agent with Kubernetes](https://developer.hashicorp.com/vault/tutorials/kubernetes/agent-kubernetes)
-- [Slides 8-14](operations-training/03-Employ-the-Vault-Security-Model.pdf)
+- [Slides 8-14](https://github.com/sarg3nt/vault-training/blob/main/operations-training/03-Employ-the-Vault-Security-Model.pdf)

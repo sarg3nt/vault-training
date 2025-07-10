@@ -42,7 +42,7 @@ Internal groups are manually created in vault while external groups are automati
 - An entity can be manually created to map multiple entities for a single user to provide more efficient authorization management
 - Any tokens that are created for the entity inherit the capabilities that are granted by alias(es)
 - Not everyone creates manual entities as most of the time there's just one auth method enabled. Can be useful if you have multiple accounts that you want to tie together to inherit privileges.
-- [Slides 1-14](operations-training/07-Configure-Access-Control.pdf)
+- [Slides 1-14](https://github.com/sarg3nt/vault-training/blob/main/operations-training/07-Configure-Access-Control.pdf)
 
 ```bash
 # Create a new entity that we will add aliases to
@@ -89,7 +89,7 @@ token/    token    auth_token_0dc86457    token based credentials    n/a
 
 ## Vault Policies
 
-[Slides 16-40](operations-training/07-Configure-Access-Control.pdf))
+[Slides 16-40](https://github.com/sarg3nt/vault-training/blob/main/operations-training/07-Configure-Access-Control.pdf))
 
 - Also called ACL Policies or just ACLs
 - Vault policies provide operators a way to permit or deny access to certain paths or actions within Vault (RBAC)
@@ -177,7 +177,7 @@ path "kv\data\apps\jenkins" {
 
 ## Vault Polices - Capabilities
 
-[Slides 41-47](operations-training/07-Configure-Access-Control.pdf)
+[Slides 41-47](https://github.com/sarg3nt/vault-training/blob/main/operations-training/07-Configure-Access-Control.pdf)
 
 ### Most Used
 
@@ -232,7 +232,7 @@ path "kv/apps/webapp/super_secret" {
 
 ## Customizing the Path
 
-[Slides 48-59](operations-training/07-Configure-Access-Control.pdf)
+[Slides 48-59](https://github.com/sarg3nt/vault-training/blob/main/operations-training/07-Configure-Access-Control.pdf)
 
 ### Using the `*` to Customize the Path
 
@@ -310,7 +310,7 @@ If my `entity.id` was `123456` then vault would create a policy for me that allo
 
 ## Working with Policies
 
-[Slides 60-64](operations-training/07-Configure-Access-Control.pdf)
+[Slides 60-64](https://github.com/sarg3nt/vault-training/blob/main/operations-training/07-Configure-Access-Control.pdf)
 
 ### Testing Policies
 
@@ -376,12 +376,12 @@ path "sys/seal" {
 
 ## Sentinel Policies (Enterprise)
 
-[Slides 66-80](operations-training/07-Configure-Access-Control.pdf)
+[Slides 66-80](https://github.com/sarg3nt/vault-training/blob/main/operations-training/07-Configure-Access-Control.pdf)
 
 ## Control Groups (Enterprise)
 
-[Slides 82-92](operations-training/07-Configure-Access-Control.pdf)
+[Slides 82-92](https://github.com/sarg3nt/vault-training/blob/main/operations-training/07-Configure-Access-Control.pdf)
 
 ## [Multi-Tenancy with Namespaces (Enterprise)](https://developer.hashicorp.com/vault/docs/commands/namespace)
 
-[Slides 93-109](operations-training/07-Configure-Access-Control.pdf)
+[Slides 93-109](https://github.com/sarg3nt/vault-training/blob/main/operations-training/07-Configure-Access-Control.pdf)

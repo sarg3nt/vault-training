@@ -54,19 +54,19 @@ vault write auth/approle/role/hcvop policies=devops \
 
 ```
 
-[Slides 1-14](operations-training/06-Scale-Vault-for-Performance.pdf)
+[Slides 1-14](https://github.com/sarg3nt/vault-training/blob/main/operations-training/06-Scale-Vault-for-Performance.pdf)
 
 ## Use Cases of Performance Standby Nodes (Enterprise)
 
 - Vault Open Source clusters are scale up. Only the master node can perform reads and writes, the standby nodes must forward all traffic to the master.
 - Vault Enterprise clusters are scale out. The standby nodes can perform reads but must send writes to the master. These are called Performance Standby nodes.
 - This feature is only available in Vault Enterprise
-- [Slides 15-23](operations-training/06-Scale-Vault-for-Performance.pdf)
+- [Slides 15-23](https://github.com/sarg3nt/vault-training/blob/main/operations-training/06-Scale-Vault-for-Performance.pdf)
 
 ## Enable and Configure Performance Replication (Enterprise)
 
 - This feature is only available in Vault Enterprise
-- [Slides 24-35](operations-training/06-Scale-Vault-for-Performance.pdf)
+- [Slides 24-35](https://github.com/sarg3nt/vault-training/blob/main/operations-training/06-Scale-Vault-for-Performance.pdf)
 
 ## Creating a Paths Filter (Enterprise)
 
@@ -80,4 +80,4 @@ This is useful for the cases where we have clusters in different regions and the
 - Enable a paths filter on a secondary cluster with  
 `vault write sys/replication/performance/primary/paths-filter/<cluster-id> mode=allow paths=aws/,hcvop/,customers/`
 - This feature is only available in Vault Enterprise
-- [Slides 36-45](operations-training/06-Scale-Vault-for-Performance.pdf)
+- [Slides 36-45](https://github.com/sarg3nt/vault-training/blob/main/operations-training/06-Scale-Vault-for-Performance.pdf)

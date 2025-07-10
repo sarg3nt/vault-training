@@ -28,7 +28,7 @@ Vault Agent provides several different features:
 
 ## Securely Configure Auto-Auth and Token Sink
 
-[Slides 1-13](operations-training/08-Configure-Vault-Agent.pdf)
+[Slides 1-13](https://github.com/sarg3nt/vault-training/blob/main/operations-training/08-Configure-Vault-Agent.pdf)
 
 ### Vault Agent – Auto-Auth
 
@@ -183,7 +183,7 @@ vault {
 
 ## [Vault Templating](https://developer.hashicorp.com/vault/docs/agent/template)
 
-[Slides 15-24](operations-training/08-Configure-Vault-Agent.pdf)
+[Slides 15-24](https://github.com/sarg3nt/vault-training/blob/main/operations-training/08-Configure-Vault-Agent.pdf)
 
 - Templating is typically for legacy applications that cannot reach out to the Vault API and get secrets for itself.
 - Templating should not be used for modern / internal applications we have control over.

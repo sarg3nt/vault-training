@@ -3,7 +3,7 @@
 
 These docs are a combination of my notes from the HashiCorp Certified: Vault Associate training [Kodekloud](https://kodekloud.com/courses/hashicorp-certified-vault-associate-certification/), [Udemy](https://www.udemy.com/course/hashicorp-vault/) and HashiCorp Certified: Vault Operations Professional 2022 training [KodeKloud](https://kodekloud.com/courses/hashicorp-certified-vault-operations-professional-2022/), [Udemy](https://www.udemy.com/course/hashicorp-certified-vault-operations-professional/)
 
-The slides for these two trainings can be seen in the [`associate-training`](associate-training/) and [`operations-training`](operations-training/) folders.
+The slides for these two trainings can be seen in the [associate-training](associate-training/) and [operations-training](operations-training/) folders.
 
 ## Table of Contents
 
